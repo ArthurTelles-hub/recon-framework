@@ -1,0 +1,1252 @@
+{
+  "20": [
+    {
+      "tool": "nmap",
+      "command": "nmap -sV -p20 <target>",
+      "description": "Identify the FTP data service"
+    },
+    {
+      "tool": "manual",
+      "command": null,
+      "description": "Check whether active FTP data connections are required and properly restricted"
+    }
+  ],
+  "21": [
+    {
+      "tool": "manual",
+      "command": null,
+      "description": "Check for anonymous FTP login"
+    },
+    {
+      "tool": "ftp",
+      "command": "ftp <target>",
+      "description": "Connect to the FTP service and inspect the server banner"
+    },
+    {
+      "tool": "nmap",
+      "command": "nmap -sV -p21 <target>",
+      "description": "Identify the FTP service version"
+    },
+    {
+      "tool": "nmap",
+      "command": "nmap --script ftp-anon,ftp-syst -p21 <target>",
+      "description": "Check anonymous access and FTP system information"
+    },
+    {
+      "tool": "hydra",
+      "command": "hydra -L user.txt -P pass.txt ftp://<target>",
+      "description": "Test FTP credentials against an authorized target"
+    }
+  ],
+  "22": [
+    {
+      "tool": "ssh-audit",
+      "command": "ssh-audit <target>",
+      "description": "Check SSH configuration and known weaknesses"
+    },
+    {
+      "tool": "nmap",
+      "command": "nmap -sV -p22 <target>",
+      "description": "Identify the SSH service version"
+    },
+    {
+      "tool": "nmap",
+      "command": "nmap --script ssh2-enum-algos,ssh-hostkey -p22 <target>",
+      "description": "Enumerate SSH algorithms and host keys"
+    },
+    {
+      "tool": "ssh",
+      "command": "ssh -v <target>",
+      "description": "Inspect SSH connection negotiation and authentication configuration"
+    },
+    {
+      "tool": "manual",
+      "command": null,
+      "description": "Check service version against known CVEs"
+    }
+  ],
+  "23": [
+    {
+      "tool": "telnet",
+      "command": "telnet <target> 23",
+      "description": "Connect to the Telnet service and inspect its banner"
+    },
+    {
+      "tool": "nmap",
+      "command": "nmap -sV -p23 <target>",
+      "description": "Identify the Telnet service version"
+    },
+    {
+      "tool": "nmap",
+      "command": "nmap --script telnet-encryption,telnet-ntlm-info -p23 <target>",
+      "description": "Check Telnet encryption and authentication information"
+    },
+    {
+      "tool": "manual",
+      "command": null,
+      "description": "Check whether Telnet can be replaced with an encrypted remote administration protocol"
+    }
+  ],
+  "25": [
+    {
+      "tool": "nmap",
+      "command": "nmap -sV -p25 <target>",
+      "description": "Identify the SMTP service and version"
+    },
+    {
+      "tool": "nmap",
+      "command": "nmap --script smtp-commands,smtp-ntlm-info -p25 <target>",
+      "description": "Enumerate supported SMTP commands and authentication information"
+    },
+    {
+      "tool": "smtp-user-enum",
+      "command": "smtp-user-enum -M VRFY -t <target>",
+      "description": "Check whether the SMTP server exposes valid usernames"
+    },
+    {
+      "tool": "manual",
+      "command": null,
+      "description": "Check SMTP relay restrictions and authentication requirements"
+    }
+  ],
+  "53": [
+    {
+      "tool": "dig",
+      "command": "dig @<target> <domain>",
+      "description": "Query the DNS service directly"
+    },
+    {
+      "tool": "nslookup",
+      "command": "nslookup <domain> <target>",
+      "description": "Perform DNS queries against the target server"
+    },
+    {
+      "tool": "nmap",
+      "command": "nmap -sV -p53 <target>",
+      "description": "Identify the DNS service version"
+    },
+    {
+      "tool": "nmap",
+      "command": "nmap --script dns-recursion,dns-service-discovery -p53 <target>",
+      "description": "Check DNS recursion and service information"
+    },
+    {
+      "tool": "manual",
+      "command": null,
+      "description": "Check whether unauthorized recursive queries are allowed"
+    }
+  ],
+  "69": [
+    {
+      "tool": "nmap",
+      "command": "nmap -sV -p69 <target>",
+      "description": "Identify the TFTP service"
+    },
+    {
+      "tool": "manual",
+      "command": null,
+      "description": "Check whether TFTP is necessary and restricted to trusted networks"
+    }
+  ],
+  "79": [
+    {
+      "tool": "nmap",
+      "command": "nmap -sV -p79 <target>",
+      "description": "Identify the Finger service"
+    },
+    {
+      "tool": "manual",
+      "command": null,
+      "description": "Check whether the Finger service is necessary and whether it exposes user information"
+    }
+  ],
+  "80": [
+    {
+      "tool": "gobuster",
+      "command": "gobuster dir -u http://<target> -w wordlist.txt",
+      "description": "Enumerate hidden directories and files"
+    },
+    {
+      "tool": "nikto",
+      "command": "nikto -h <target>",
+      "description": "Scan for common web server misconfigurations"
+    },
+    {
+      "tool": "whatweb",
+      "command": "whatweb <target>",
+      "description": "Fingerprint web technologies in use"
+    },
+    {
+      "tool": "nmap",
+      "command": "nmap -sV -p80 --script http-title,http-headers,http-methods <target>",
+      "description": "Enumerate HTTP version, headers, title, and supported methods"
+    },
+    {
+      "tool": "curl",
+      "command": "curl -I http://<target>",
+      "description": "Inspect HTTP response headers"
+    },
+    {
+      "tool": "httpx",
+      "command": "httpx -u http://<target>",
+      "description": "Probe the HTTP service and identify web technologies"
+    },
+    {
+      "tool": "feroxbuster",
+      "command": "feroxbuster -u http://<target> -w wordlist.txt",
+      "description": "Enumerate web directories and resources"
+    },
+    {
+      "tool": "wafw00f",
+      "command": "wafw00f http://<target>",
+      "description": "Identify possible web application firewalls"
+    }
+  ],
+  "88": [
+    {
+      "tool": "nmap",
+      "command": "nmap -sV -p88 <target>",
+      "description": "Identify the Kerberos service"
+    },
+    {
+      "tool": "nmap",
+      "command": "nmap --script krb5-enum-users -p88 <target>",
+      "description": "Check Kerberos user enumeration behavior where authorized"
+    },
+    {
+      "tool": "manual",
+      "command": null,
+      "description": "Check Kerberos realm and authentication configuration"
+    }
+  ],
+  "110": [
+    {
+      "tool": "nmap",
+      "command": "nmap -sV -p110 <target>",
+      "description": "Identify the POP3 service version"
+    },
+    {
+      "tool": "nmap",
+      "command": "nmap --script pop3-capabilities -p110 <target>",
+      "description": "Enumerate POP3 capabilities"
+    },
+    {
+      "tool": "telnet",
+      "command": "telnet <target> 110",
+      "description": "Connect to POP3 and inspect the service banner"
+    },
+    {
+      "tool": "manual",
+      "command": null,
+      "description": "Check whether POP3 authentication and transport encryption are properly configured"
+    }
+  ],
+  "111": [
+    {
+      "tool": "nmap",
+      "command": "nmap -sV -p111 <target>",
+      "description": "Identify the RPCbind service"
+    },
+    {
+      "tool": "rpcinfo",
+      "command": "rpcinfo -p <target>",
+      "description": "List RPC services exposed by the host"
+    },
+    {
+      "tool": "manual",
+      "command": null,
+      "description": "Check whether RPCbind is restricted to trusted networks"
+    }
+  ],
+  "123": [
+    {
+      "tool": "ntpdate",
+      "command": "ntpdate -q <target>",
+      "description": "Query the NTP server and inspect its time response"
+    },
+    {
+      "tool": "nmap",
+      "command": "nmap -sV -p123 <target>",
+      "description": "Identify the NTP service"
+    },
+    {
+      "tool": "manual",
+      "command": null,
+      "description": "Check whether NTP responses and administration are appropriately restricted"
+    }
+  ],
+  "135": [
+    {
+      "tool": "nmap",
+      "command": "nmap -sV -p135 <target>",
+      "description": "Identify the Microsoft RPC endpoint mapper service"
+    },
+    {
+      "tool": "nmap",
+      "command": "nmap --script msrpc-enum -p135 <target>",
+      "description": "Enumerate Microsoft RPC information"
+    },
+    {
+      "tool": "rpcinfo",
+      "command": "rpcinfo -p <target>",
+      "description": "Query available RPC services when supported"
+    },
+    {
+      "tool": "manual",
+      "command": null,
+      "description": "Check whether RPC exposure is necessary and restricted by network controls"
+    }
+  ],
+  "139": [
+    {
+      "tool": "enum4linux",
+      "command": "enum4linux -a <target>",
+      "description": "Enumerate SMB users, shares, and policies"
+    },
+    {
+      "tool": "smbclient",
+      "command": "smbclient -L //<target>/ -N",
+      "description": "List available SMB shares anonymously"
+    },
+    {
+      "tool": "nmap",
+      "command": "nmap --script smb-protocols,smb-security-mode -p139 <target>",
+      "description": "Enumerate SMB protocol versions and security configuration"
+    },
+    {
+      "tool": "smbmap",
+      "command": "smbmap -H <target>",
+      "description": "Map accessible SMB shares and permissions"
+    },
+    {
+      "tool": "manual",
+      "command": null,
+      "description": "Check whether legacy NetBIOS session services are required"
+    }
+  ],
+  "143": [
+    {
+      "tool": "nmap",
+      "command": "nmap -sV -p143 <target>",
+      "description": "Identify the IMAP service version"
+    },
+    {
+      "tool": "nmap",
+      "command": "nmap --script imap-capabilities -p143 <target>",
+      "description": "Enumerate IMAP capabilities"
+    },
+    {
+      "tool": "telnet",
+      "command": "telnet <target> 143",
+      "description": "Connect to IMAP and inspect the service banner"
+    },
+    {
+      "tool": "manual",
+      "command": null,
+      "description": "Check IMAP authentication and encryption configuration"
+    }
+  ],
+  "161": [
+    {
+      "tool": "snmpwalk",
+      "command": "snmpwalk -v2c -c <community> <target>",
+      "description": "Query SNMP information using authorized credentials"
+    },
+    {
+      "tool": "nmap",
+      "command": "nmap -sV -sU -p161 <target>",
+      "description": "Identify the SNMP service"
+    },
+    {
+      "tool": "nmap",
+      "command": "nmap --script snmp-info -sU -p161 <target>",
+      "description": "Enumerate SNMP service information"
+    },
+    {
+      "tool": "manual",
+      "command": null,
+      "description": "Check SNMP community configuration and network restrictions"
+    }
+  ],
+  "162": [
+    {
+      "tool": "nmap",
+      "command": "nmap -sU -p162 <target>",
+      "description": "Check whether the SNMP trap service is exposed"
+    },
+    {
+      "tool": "manual",
+      "command": null,
+      "description": "Check whether SNMP traps are restricted to trusted monitoring systems"
+    }
+  ],
+  "389": [
+    {
+      "tool": "ldapsearch",
+      "command": "ldapsearch -x -H ldap://<target> -s base",
+      "description": "Query basic LDAP directory information"
+    },
+    {
+      "tool": "nmap",
+      "command": "nmap -sV -p389 <target>",
+      "description": "Identify the LDAP service version"
+    },
+    {
+      "tool": "nmap",
+      "command": "nmap --script ldap-rootdse -p389 <target>",
+      "description": "Enumerate LDAP root DSE information"
+    },
+    {
+      "tool": "manual",
+      "command": null,
+      "description": "Check whether LDAP communications require signing or encryption"
+    }
+  ],
+  "443": [
+    {
+      "tool": "gobuster",
+      "command": "gobuster dir -u https://<target> -w wordlist.txt",
+      "description": "Enumerate hidden directories and files over HTTPS"
+    },
+    {
+      "tool": "testssl",
+      "command": "testssl.sh <target>",
+      "description": "Check TLS/SSL configuration and certificate issues"
+    },
+    {
+      "tool": "whatweb",
+      "command": "whatweb https://<target>",
+      "description": "Fingerprint HTTPS web technologies"
+    },
+    {
+      "tool": "nmap",
+      "command": "nmap -sV -p443 --script ssl-cert,ssl-enum-ciphers,http-title,http-headers <target>",
+      "description": "Enumerate TLS certificates, ciphers, and HTTP information"
+    },
+    {
+      "tool": "curl",
+      "command": "curl -I https://<target>",
+      "description": "Inspect HTTPS response headers"
+    },
+    {
+      "tool": "httpx",
+      "command": "httpx -u https://<target>",
+      "description": "Probe HTTPS and identify web technologies"
+    },
+    {
+      "tool": "feroxbuster",
+      "command": "feroxbuster -u https://<target> -w wordlist.txt",
+      "description": "Enumerate HTTPS directories and resources"
+    },
+    {
+      "tool": "wafw00f",
+      "command": "wafw00f https://<target>",
+      "description": "Identify possible web application firewalls"
+    }
+  ],
+  "445": [
+    {
+      "tool": "enum4linux",
+      "command": "enum4linux -a <target>",
+      "description": "Enumerate SMB users, shares, and policies"
+    },
+    {
+      "tool": "smbclient",
+      "command": "smbclient -L //<target>/ -N",
+      "description": "List available SMB shares anonymously"
+    },
+    {
+      "tool": "smbmap",
+      "command": "smbmap -H <target>",
+      "description": "Map accessible SMB shares and permissions"
+    },
+    {
+      "tool": "nmap",
+      "command": "nmap --script smb-protocols,smb-security-mode,smb2-security-mode -p445 <target>",
+      "description": "Check SMB protocol versions and security configuration"
+    },
+    {
+      "tool": "nmap",
+      "command": "nmap --script smb-os-discovery -p445 <target>",
+      "description": "Identify operating system and SMB host information"
+    },
+    {
+      "tool": "crackmapexec",
+      "command": "cme smb <target>",
+      "description": "Enumerate SMB host information and authentication configuration"
+    },
+    {
+      "tool": "manual",
+      "command": null,
+      "description": "Check whether SMBv1 is disabled"
+    }
+  ],
+  "500": [
+    {
+      "tool": "nmap",
+      "command": "nmap -sU -p500 <target>",
+      "description": "Identify IKE and IPsec-related services"
+    },
+    {
+      "tool": "nmap",
+      "command": "nmap --script ike-version -sU -p500 <target>",
+      "description": "Identify IKE version and service information"
+    },
+    {
+      "tool": "manual",
+      "command": null,
+      "description": "Check IPsec and IKE configuration for secure authentication and encryption"
+    }
+  ],
+  "514": [
+    {
+      "tool": "nmap",
+      "command": "nmap -sV -p514 <target>",
+      "description": "Identify the TCP syslog service"
+    },
+    {
+      "tool": "nmap",
+      "command": "nmap -sU -p514 <target>",
+      "description": "Check the UDP syslog service"
+    },
+    {
+      "tool": "manual",
+      "command": null,
+      "description": "Check whether syslog traffic is restricted and protected from unauthorized sources"
+    }
+  ],
+  "548": [
+    {
+      "tool": "nmap",
+      "command": "nmap -sV -p548 <target>",
+      "description": "Identify the AFP service"
+    },
+    {
+      "tool": "manual",
+      "command": null,
+      "description": "Check AFP access controls and whether the legacy file service is still required"
+    }
+  ],
+  "587": [
+    {
+      "tool": "nmap",
+      "command": "nmap -sV -p587 <target>",
+      "description": "Identify the SMTP submission service"
+    },
+    {
+      "tool": "openssl",
+      "command": "openssl s_client -starttls smtp -connect <target>:587",
+      "description": "Inspect STARTTLS configuration on SMTP submission"
+    },
+    {
+      "tool": "manual",
+      "command": null,
+      "description": "Check SMTP submission authentication and transport encryption"
+    }
+  ],
+  "631": [
+    {
+      "tool": "curl",
+      "command": "curl -I http://<target>:631",
+      "description": "Inspect the IPP/CUPS web interface"
+    },
+    {
+      "tool": "nmap",
+      "command": "nmap -sV -p631 <target>",
+      "description": "Identify the IPP/CUPS service"
+    },
+    {
+      "tool": "manual",
+      "command": null,
+      "description": "Check printer administration access controls and network exposure"
+    }
+  ],
+  "636": [
+    {
+      "tool": "ldapsearch",
+      "command": "ldapsearch -x -H ldaps://<target>:636 -s base",
+      "description": "Query basic LDAPS directory information"
+    },
+    {
+      "tool": "nmap",
+      "command": "nmap -sV -p636 <target>",
+      "description": "Identify the LDAPS service"
+    },
+    {
+      "tool": "nmap",
+      "command": "nmap --script ssl-cert,ssl-enum-ciphers -p636 <target>",
+      "description": "Inspect LDAPS certificate and supported TLS ciphers"
+    },
+    {
+      "tool": "manual",
+      "command": null,
+      "description": "Check LDAP over TLS certificate validation and security configuration"
+    }
+  ],
+  "873": [
+    {
+      "tool": "nmap",
+      "command": "nmap -sV -p873 <target>",
+      "description": "Identify the rsync service"
+    },
+    {
+      "tool": "nmap",
+      "command": "nmap --script rsync-list-modules -p873 <target>",
+      "description": "List rsync modules exposed by the service"
+    },
+    {
+      "tool": "manual",
+      "command": null,
+      "description": "Check whether rsync modules require authentication and network restrictions"
+    }
+  ],
+  "993": [
+    {
+      "tool": "nmap",
+      "command": "nmap -sV -p993 <target>",
+      "description": "Identify the IMAPS service"
+    },
+    {
+      "tool": "openssl",
+      "command": "openssl s_client -connect <target>:993",
+      "description": "Inspect the IMAPS TLS certificate and negotiation"
+    },
+    {
+      "tool": "manual",
+      "command": null,
+      "description": "Check IMAPS authentication and TLS configuration"
+    }
+  ],
+  "995": [
+    {
+      "tool": "nmap",
+      "command": "nmap -sV -p995 <target>",
+      "description": "Identify the POP3S service"
+    },
+    {
+      "tool": "openssl",
+      "command": "openssl s_client -connect <target>:995",
+      "description": "Inspect POP3S TLS certificate and negotiation"
+    },
+    {
+      "tool": "manual",
+      "command": null,
+      "description": "Check POP3S authentication and TLS configuration"
+    }
+  ],
+  "1433": [
+    {
+      "tool": "nmap",
+      "command": "nmap -sV -p1433 <target>",
+      "description": "Identify the Microsoft SQL Server version"
+    },
+    {
+      "tool": "nmap",
+      "command": "nmap --script ms-sql-info -p1433 <target>",
+      "description": "Enumerate SQL Server information"
+    },
+    {
+      "tool": "sqlcmd",
+      "command": "sqlcmd -S <target>,1433",
+      "description": "Connect to Microsoft SQL Server for authorized administration"
+    },
+    {
+      "tool": "mssql-cli",
+      "command": "mssql-cli -S <target> -U <username>",
+      "description": "Connect to SQL Server using an interactive client"
+    },
+    {
+      "tool": "manual",
+      "command": null,
+      "description": "Check SQL Server authentication mode and network exposure"
+    }
+  ],
+  "1434": [
+    {
+      "tool": "nmap",
+      "command": "nmap -sU -p1434 <target>",
+      "description": "Check the Microsoft SQL Server Browser service"
+    },
+    {
+      "tool": "nmap",
+      "command": "nmap --script ms-sql-info -sU -p1434 <target>",
+      "description": "Enumerate SQL Server information where supported"
+    },
+    {
+      "tool": "manual",
+      "command": null,
+      "description": "Check whether SQL Server Browser exposure is necessary"
+    }
+  ],
+  "1521": [
+    {
+      "tool": "nmap",
+      "command": "nmap -sV -p1521 <target>",
+      "description": "Identify the Oracle database listener"
+    },
+    {
+      "tool": "nmap",
+      "command": "nmap --script oracle-tns-version -p1521 <target>",
+      "description": "Identify Oracle TNS listener information"
+    },
+    {
+      "tool": "tnsping",
+      "command": "tnsping <target>",
+      "description": "Test Oracle listener connectivity"
+    },
+    {
+      "tool": "manual",
+      "command": null,
+      "description": "Check whether the Oracle listener is unnecessarily exposed to untrusted networks"
+    }
+  ],
+  "2049": [
+    {
+      "tool": "nmap",
+      "command": "nmap -sV -p2049 <target>",
+      "description": "Identify the NFS service"
+    },
+    {
+      "tool": "nmap",
+      "command": "nmap --script nfs-showmount -p2049 <target>",
+      "description": "Enumerate NFS exports when supported"
+    },
+    {
+      "tool": "showmount",
+      "command": "showmount -e <target>",
+      "description": "List NFS exports exposed by the server"
+    },
+    {
+      "tool": "manual",
+      "command": null,
+      "description": "Check NFS export permissions and network restrictions"
+    }
+  ],
+  "2375": [
+    {
+      "tool": "nmap",
+      "command": "nmap -sV -p2375 <target>",
+      "description": "Identify the Docker API service"
+    },
+    {
+      "tool": "curl",
+      "command": "curl http://<target>:2375/version",
+      "description": "Inspect the Docker API version endpoint"
+    },
+    {
+      "tool": "manual",
+      "command": null,
+      "description": "Check whether the Docker API is exposed without TLS or network restrictions"
+    }
+  ],
+  "3128": [
+    {
+      "tool": "curl",
+      "command": "curl -I -x http://<target>:3128 http://example.com",
+      "description": "Check whether the HTTP proxy accepts authorized requests"
+    },
+    {
+      "tool": "nmap",
+      "command": "nmap -sV -p3128 <target>",
+      "description": "Identify the proxy service"
+    },
+    {
+      "tool": "nmap",
+      "command": "nmap --script http-open-proxy -p3128 <target>",
+      "description": "Check for open proxy behavior"
+    },
+    {
+      "tool": "manual",
+      "command": null,
+      "description": "Check proxy authentication and outbound access restrictions"
+    }
+  ],
+  "3306": [
+    {
+      "tool": "nmap",
+      "command": "nmap -sV -p3306 <target>",
+      "description": "Identify the MySQL or MariaDB version"
+    },
+    {
+      "tool": "nmap",
+      "command": "nmap --script mysql-info -p3306 <target>",
+      "description": "Enumerate MySQL server information"
+    },
+    {
+      "tool": "mysql",
+      "command": "mysql -h <target> -u <username> -p",
+      "description": "Connect to MySQL using authorized credentials"
+    },
+    {
+      "tool": "mysql",
+      "command": "mysql -h <target> -u root",
+      "description": "Test whether the root account requires authentication on an authorized system"
+    },
+    {
+      "tool": "manual",
+      "command": null,
+      "description": "Check MySQL network exposure and authentication configuration"
+    }
+  ],
+  "3389": [
+    {
+      "tool": "rdp-sec-check",
+      "command": "rdp-sec-check <target>",
+      "description": "Check RDP security configuration"
+    },
+    {
+      "tool": "nmap",
+      "command": "nmap -sV -p3389 <target>",
+      "description": "Identify the RDP service version"
+    },
+    {
+      "tool": "nmap",
+      "command": "nmap --script rdp-enum-encryption,rdp-ntlm-info -p3389 <target>",
+      "description": "Enumerate RDP encryption and authentication information"
+    },
+    {
+      "tool": "xfreerdp",
+      "command": "xfreerdp /v:<target>",
+      "description": "Attempt an interactive RDP connection"
+    },
+    {
+      "tool": "manual",
+      "command": null,
+      "description": "Check whether Network Level Authentication is enabled"
+    }
+  ],
+  "4444": [
+    {
+      "tool": "nmap",
+      "command": "nmap -sV -p4444 <target>",
+      "description": "Identify the service listening on port 4444"
+    },
+    {
+      "tool": "nc",
+      "command": "nc -nv <target> 4444",
+      "description": "Connect to the service and inspect its banner where authorized"
+    },
+    {
+      "tool": "manual",
+      "command": null,
+      "description": "Determine which application owns the port and verify that its exposure is expected"
+    }
+  ],
+  "5060": [
+    {
+      "tool": "nmap",
+      "command": "nmap -sU -sV -p5060 <target>",
+      "description": "Identify the SIP service"
+    },
+    {
+      "tool": "nmap",
+      "command": "nmap --script sip-methods -sU -p5060 <target>",
+      "description": "Enumerate SIP methods"
+    },
+    {
+      "tool": "manual",
+      "command": null,
+      "description": "Check SIP authentication, transport security, and exposure"
+    }
+  ],
+  "5432": [
+    {
+      "tool": "nmap",
+      "command": "nmap -sV -p5432 <target>",
+      "description": "Identify the PostgreSQL version"
+    },
+    {
+      "tool": "nmap",
+      "command": "nmap --script pgsql-info -p5432 <target>",
+      "description": "Enumerate PostgreSQL server information"
+    },
+    {
+      "tool": "psql",
+      "command": "psql -h <target> -U <username> -d <database>",
+      "description": "Connect to PostgreSQL using authorized credentials"
+    },
+    {
+      "tool": "manual",
+      "command": null,
+      "description": "Check PostgreSQL host-based authentication and network exposure"
+    }
+  ],
+  "5672": [
+    {
+      "tool": "nmap",
+      "command": "nmap -sV -p5672 <target>",
+      "description": "Identify the AMQP service"
+    },
+    {
+      "tool": "nmap",
+      "command": "nmap --script amqp-info -p5672 <target>",
+      "description": "Enumerate AMQP service information"
+    },
+    {
+      "tool": "manual",
+      "command": null,
+      "description": "Check AMQP authentication, authorization, and network exposure"
+    }
+  ],
+  "5900": [
+    {
+      "tool": "nmap",
+      "command": "nmap -sV -p5900 <target>",
+      "description": "Identify the VNC service version"
+    },
+    {
+      "tool": "nmap",
+      "command": "nmap --script vnc-info -p5900 <target>",
+      "description": "Enumerate VNC protocol information"
+    },
+    {
+      "tool": "vncviewer",
+      "command": "vncviewer <target>:5900",
+      "description": "Attempt an authorized VNC connection"
+    },
+    {
+      "tool": "manual",
+      "command": null,
+      "description": "Check whether VNC is protected by authentication and restricted to trusted networks"
+    }
+  ],
+  "5985": [
+    {
+      "tool": "nmap",
+      "command": "nmap -sV -p5985 <target>",
+      "description": "Identify the WinRM HTTP service"
+    },
+    {
+      "tool": "curl",
+      "command": "curl -I http://<target>:5985/wsman",
+      "description": "Inspect the WinRM endpoint response"
+    },
+    {
+      "tool": "manual",
+      "command": null,
+      "description": "Check WinRM authentication, encryption, and network restrictions"
+    }
+  ],
+  "5986": [
+    {
+      "tool": "nmap",
+      "command": "nmap -sV -p5986 <target>",
+      "description": "Identify the WinRM HTTPS service"
+    },
+    {
+      "tool": "openssl",
+      "command": "openssl s_client -connect <target>:5986",
+      "description": "Inspect the WinRM TLS certificate and negotiation"
+    },
+    {
+      "tool": "manual",
+      "command": null,
+      "description": "Check WinRM HTTPS certificate validation and authentication controls"
+    }
+  ],
+  "6379": [
+    {
+      "tool": "nmap",
+      "command": "nmap -sV -p6379 <target>",
+      "description": "Identify the Redis service"
+    },
+    {
+      "tool": "nmap",
+      "command": "nmap --script redis-info -p6379 <target>",
+      "description": "Enumerate Redis server information"
+    },
+    {
+      "tool": "redis-cli",
+      "command": "redis-cli -h <target> INFO",
+      "description": "Query Redis server information on an authorized system"
+    },
+    {
+      "tool": "manual",
+      "command": null,
+      "description": "Check whether Redis is exposed without authentication or network restrictions"
+    }
+  ],
+  "6443": [
+    {
+      "tool": "curl",
+      "command": "curl -k -I https://<target>:6443",
+      "description": "Inspect the Kubernetes API HTTPS endpoint"
+    },
+    {
+      "tool": "nmap",
+      "command": "nmap -sV -p6443 <target>",
+      "description": "Identify the Kubernetes API service"
+    },
+    {
+      "tool": "manual",
+      "command": null,
+      "description": "Check Kubernetes API authentication and network access controls"
+    }
+  ],
+  "8000": [
+    {
+      "tool": "curl",
+      "command": "curl -I http://<target>:8000",
+      "description": "Inspect HTTP response headers on port 8000"
+    },
+    {
+      "tool": "whatweb",
+      "command": "whatweb http://<target>:8000",
+      "description": "Fingerprint web technologies"
+    },
+    {
+      "tool": "nmap",
+      "command": "nmap -sV -p8000 --script http-title,http-headers,http-methods <target>",
+      "description": "Enumerate HTTP service information and methods"
+    },
+    {
+      "tool": "manual",
+      "command": null,
+      "description": "Check whether the development or application service is appropriately protected"
+    }
+  ],
+  "8080": [
+    {
+      "tool": "gobuster",
+      "command": "gobuster dir -u http://<target>:8080 -w wordlist.txt",
+      "description": "Enumerate directories on the HTTP alternate port"
+    },
+    {
+      "tool": "whatweb",
+      "command": "whatweb http://<target>:8080",
+      "description": "Fingerprint web technologies"
+    },
+    {
+      "tool": "nikto",
+      "command": "nikto -h http://<target>:8080",
+      "description": "Check for common web server misconfigurations"
+    },
+    {
+      "tool": "nmap",
+      "command": "nmap -sV -p8080 --script http-title,http-headers,http-methods <target>",
+      "description": "Enumerate HTTP service information and supported methods"
+    },
+    {
+      "tool": "curl",
+      "command": "curl -I http://<target>:8080",
+      "description": "Inspect HTTP response headers"
+    },
+    {
+      "tool": "httpx",
+      "command": "httpx -u http://<target>:8080",
+      "description": "Probe the alternate HTTP service"
+    }
+  ],
+  "8081": [
+    {
+      "tool": "curl",
+      "command": "curl -I http://<target>:8081",
+      "description": "Inspect HTTP response headers on port 8081"
+    },
+    {
+      "tool": "whatweb",
+      "command": "whatweb http://<target>:8081",
+      "description": "Fingerprint web technologies"
+    },
+    {
+      "tool": "nmap",
+      "command": "nmap -sV -p8081 --script http-title,http-headers <target>",
+      "description": "Enumerate HTTP service information"
+    },
+    {
+      "tool": "manual",
+      "command": null,
+      "description": "Check whether the alternate web service is properly authenticated and restricted"
+    }
+  ],
+  "8089": [
+    {
+      "tool": "curl",
+      "command": "curl -I http://<target>:8089",
+      "description": "Inspect HTTP response headers on port 8089"
+    },
+    {
+      "tool": "nmap",
+      "command": "nmap -sV -p8089 --script http-title,http-headers <target>",
+      "description": "Enumerate the web service on port 8089"
+    },
+    {
+      "tool": "manual",
+      "command": null,
+      "description": "Check management interface authentication and network restrictions"
+    }
+  ],
+  "8443": [
+    {
+      "tool": "gobuster",
+      "command": "gobuster dir -u https://<target>:8443 -w wordlist.txt",
+      "description": "Enumerate directories on the alternate HTTPS port"
+    },
+    {
+      "tool": "whatweb",
+      "command": "whatweb https://<target>:8443",
+      "description": "Fingerprint HTTPS technologies"
+    },
+    {
+      "tool": "testssl",
+      "command": "testssl.sh <target>:8443",
+      "description": "Check TLS configuration on the alternate HTTPS service"
+    },
+    {
+      "tool": "nmap",
+      "command": "nmap -sV -p8443 --script ssl-cert,http-title,http-headers <target>",
+      "description": "Enumerate TLS certificate and HTTP information"
+    },
+    {
+      "tool": "curl",
+      "command": "curl -k -I https://<target>:8443",
+      "description": "Inspect HTTPS response headers"
+    }
+  ],
+  "8888": [
+    {
+      "tool": "curl",
+      "command": "curl -I http://<target>:8888",
+      "description": "Inspect HTTP response headers on port 8888"
+    },
+    {
+      "tool": "whatweb",
+      "command": "whatweb http://<target>:8888",
+      "description": "Fingerprint web technologies"
+    },
+    {
+      "tool": "nmap",
+      "command": "nmap -sV -p8888 --script http-title,http-headers <target>",
+      "description": "Enumerate HTTP service information"
+    },
+    {
+      "tool": "manual",
+      "command": null,
+      "description": "Check whether notebook, proxy, or application interfaces are access-controlled"
+    }
+  ],
+  "9000": [
+    {
+      "tool": "curl",
+      "command": "curl -I http://<target>:9000",
+      "description": "Inspect HTTP response headers on port 9000"
+    },
+    {
+      "tool": "whatweb",
+      "command": "whatweb http://<target>:9000",
+      "description": "Fingerprint web technologies"
+    },
+    {
+      "tool": "nmap",
+      "command": "nmap -sV -p9000 --script http-title,http-headers <target>",
+      "description": "Enumerate HTTP service information"
+    },
+    {
+      "tool": "manual",
+      "command": null,
+      "description": "Check whether the application or management interface is appropriately restricted"
+    }
+  ],
+  "9090": [
+    {
+      "tool": "curl",
+      "command": "curl -I http://<target>:9090",
+      "description": "Inspect HTTP response headers on port 9090"
+    },
+    {
+      "tool": "whatweb",
+      "command": "whatweb http://<target>:9090",
+      "description": "Fingerprint web technologies"
+    },
+    {
+      "tool": "nmap",
+      "command": "nmap -sV -p9090 --script http-title,http-headers <target>",
+      "description": "Enumerate HTTP service information"
+    },
+    {
+      "tool": "manual",
+      "command": null,
+      "description": "Check whether monitoring or management interfaces require authentication"
+    }
+  ],
+  "9200": [
+    {
+      "tool": "curl",
+      "command": "curl http://<target>:9200/",
+      "description": "Retrieve basic Elasticsearch service information"
+    },
+    {
+      "tool": "nmap",
+      "command": "nmap -sV -p9200 <target>",
+      "description": "Identify the Elasticsearch service"
+    },
+    {
+      "tool": "manual",
+      "command": null,
+      "description": "Check Elasticsearch authentication and network exposure"
+    }
+  ],
+  "9300": [
+    {
+      "tool": "nmap",
+      "command": "nmap -sV -p9300 <target>",
+      "description": "Identify the Elasticsearch transport service"
+    },
+    {
+      "tool": "manual",
+      "command": null,
+      "description": "Check whether Elasticsearch transport traffic is restricted to cluster members"
+    }
+  ],
+  "10000": [
+    {
+      "tool": "nmap",
+      "command": "nmap -sV -p10000 <target>",
+      "description": "Identify the Webmin or alternate management service"
+    },
+    {
+      "tool": "curl",
+      "command": "curl -k -I https://<target>:10000",
+      "description": "Inspect the HTTPS management interface"
+    },
+    {
+      "tool": "manual",
+      "command": null,
+      "description": "Check management interface authentication and trusted-network restrictions"
+    }
+  ],
+  "11211": [
+    {
+      "tool": "nmap",
+      "command": "nmap -sV -p11211 <target>",
+      "description": "Identify the Memcached service"
+    },
+    {
+      "tool": "nmap",
+      "command": "nmap --script memcached-info -p11211 <target>",
+      "description": "Enumerate Memcached service information"
+    },
+    {
+      "tool": "manual",
+      "command": null,
+      "description": "Check whether Memcached is exposed beyond trusted application networks"
+    }
+  ],
+  "27017": [
+    {
+      "tool": "nmap",
+      "command": "nmap -sV -p27017 <target>",
+      "description": "Identify the MongoDB service"
+    },
+    {
+      "tool": "nmap",
+      "command": "nmap --script mongodb-info -p27017 <target>",
+      "description": "Enumerate MongoDB service information"
+    },
+    {
+      "tool": "manual",
+      "command": null,
+      "description": "Check MongoDB authentication, authorization, and network exposure"
+    }
+  ]
+}
