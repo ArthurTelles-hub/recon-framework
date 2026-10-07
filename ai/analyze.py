@@ -25,8 +25,12 @@ import sys
 import urllib.error
 import urllib.request
 
-DEFAULT_API_BASE = "https://api.groq.com/openai/v1"
-DEFAULT_MODEL = "llama-3.1-8b-instant"
+from dotenv import load_dotenv
+
+load_dotenv()
+
+DEFAULT_API_BASE = os.getenv("KEY")
+DEFAULT_MODEL = os.getenv("MODEL")
 
 SYSTEM_PROMPT = (
     "You are a precise security analysis assistant helping with an "
